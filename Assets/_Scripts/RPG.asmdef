@@ -1,7 +1,10 @@
 {
     "name": "RPG",
     "rootNamespace": "RPG",
-    "references": [],
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:3123764b3b9ca874d89a7180a8be801f"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
