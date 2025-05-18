@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace RPG
 {
+    /// <summary>
+    /// Holds animator parameter names and their hashed values used to control player animation states.
+    /// Supports both grounded and airborne state groups and provides initialization for hashing.
+    /// </summary>
     [System.Serializable]
     public class PlayerAnimationData
     {
@@ -27,7 +31,7 @@ namespace RPG
         public int SpeedParameterHash { get; private set; }
         public float AnimationBlend { get; set; }
 
-        public void Initialize()
+        public void Init()
         {
             GroundedParameterHash = Animator.StringToHash(_groundedParameterName);
             AirborneParameterHash = Animator.StringToHash(_airborneParameterName);
@@ -38,7 +42,6 @@ namespace RPG
             FallParameterHash = Animator.StringToHash(_fallParameterName);
             
             SpeedParameterHash = Animator.StringToHash(_speedeParameterName);
-
         }
     }
 }

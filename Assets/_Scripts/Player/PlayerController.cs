@@ -2,13 +2,22 @@ using UnityEngine;
 
 namespace RPG
 {
+    public interface IMovementStateAnimationHandler
+    {
+        Animator Animator { get; }
+
+        void OnMovementStateAnimationEnterEvent();
+        void OnMovementStateAnimationExitEvent();
+        void OnMovementStateAnimationTransitionEvent();
+    }
+
     [SelectionBase]
     [RequireComponent(typeof(PlayerInputHandler))]
     [RequireComponent(typeof(PlayerResizableCapsuleCollider))]
-    public class PlayerController : MonoBehaviour//, ISaveable
+    public class PlayerController : MonoBehaviour, IMovementStateAnimationHandler//, ISaveable
     {
         [field: Header("References")]
-        [field: SerializeField] public PlayerSO Data { get; private set; }
+        [field: SerializeField] public PlayerStateMachineDataSO Data { get; private set; }
 
         [field: Header("Collisions")]
         [field: SerializeField] public PlayerLayerData LayerData { get; private set; }
@@ -28,7 +37,7 @@ namespace RPG
 
         private void Awake()
         {
-            AnimationData.Initialize();
+            AnimationData.Init();
 
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponentInChildren<Animator>();

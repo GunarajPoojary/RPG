@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace RPG
 {
+    /// <summary>
+    /// Defines default capsule collider dimensions for the player,
+    /// including height, center Y offset, and radius.
+    /// Used to initialize or reset collider settings based on character model bounds.
+    /// </summary>
     [System.Serializable]
     public class DefaultColliderData
     {

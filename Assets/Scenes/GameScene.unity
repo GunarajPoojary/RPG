@@ -745,8 +745,9 @@ GameObject:
   - component: {fileID: 734949353}
   - component: {fileID: 734949352}
   - component: {fileID: 734949351}
+  - component: {fileID: 734949354}
   m_Layer: 0
-  m_Name: Player_3rd-Person_Follow_Cam
+  m_Name: Player_Third_Person_Follow_Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -836,6 +837,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 968990390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &734949354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734949350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2066cdfe61b35143bb7892092356270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCameraData:
+    <CinemachineTrackingTarget>k__BackingField: {fileID: 1688176691}
+    <TopClamp>k__BackingField: 70
+    <BottomClamp>k__BackingField: -30
 --- !u!1 &902890822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1054,6 @@ GameObject:
   - component: {fileID: 968990395}
   - component: {fileID: 968990394}
   - component: {fileID: 968990393}
-  - component: {fileID: 968990396}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1148,7 +1164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ce3ce174d400a4e8d2b2e52777e487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isCursorLocked: 1
+  _isCursorLocked: 0
 --- !u!114 &968990395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,22 +1189,6 @@ MonoBehaviour:
     _rollParameterName: isRolling
     _hardLandParameterName: isHardLanding
     _fallParameterName: isFalling
---- !u!114 &968990396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968990389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2066cdfe61b35143bb7892092356270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerCameraData:
-    <CinemachineCameraTarget>k__BackingField: {fileID: 1688176691}
-    <TopClamp>k__BackingField: 70
-    <BottomClamp>k__BackingField: -30
 --- !u!1 &1347233269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,8 +1701,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.32, y: 0.2, z: 0.32}
-  m_Center: {x: 0, y: 0.1, z: 0.049999997}
+  m_Size: {x: 0.32, y: 0.2, z: 0.3}
+  m_Center: {x: 0, y: 0.1, z: 0.05}
 --- !u!4 &8615235295731072
 Transform:
   m_ObjectHideFlags: 0
@@ -6355,8 +6355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6dd5ec15a8b44caf5e78ffe7bdf31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
-  FootstepAudioClips:
+  _groundCheckCollider: {fileID: 2145346258}
+  _landingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
+  _footstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
   - {fileID: 8300000, guid: 186de84b3207156479abe98f4958fed0, type: 3}
@@ -6367,7 +6368,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67c8b33e424ccdc4486edf538ab91c5a, type: 3}
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
-  FootstepAudioVolume: 0.5
+  FootstepAudioVolume: 1
 --- !u!4 &6143857800483305450
 Transform:
   m_ObjectHideFlags: 0

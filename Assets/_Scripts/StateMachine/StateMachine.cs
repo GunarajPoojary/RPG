@@ -20,7 +20,7 @@ namespace RPG
         public void Update()
         {
 #if UNITY_EDITOR
-            Debug.Log($"<color=yellow>Current State: {_currentState.GetType().Name}</color>");
+            Debug.Log($"<color=black>Current State: {_currentState.GetType().Name}</color>");
 #endif
             _currentState?.Update();
         }

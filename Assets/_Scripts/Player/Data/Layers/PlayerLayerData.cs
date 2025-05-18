@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace RPG
 {
+    /// <summary>
+    /// Holds data related to player layer interactions, specifically ground detection.
+    /// </summary>
     [System.Serializable]
     public class PlayerLayerData
     {

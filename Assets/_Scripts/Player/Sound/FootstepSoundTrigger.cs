@@ -2,27 +2,32 @@
 
 namespace RPG
 {
+    /// <summary>
+    /// Responsible for triggering footstep and landing sounds using animation events
+    /// </summary>
     public class FootstepSoundTrigger : MonoBehaviour
     {
-        private CapsuleCollider _collider;
+        [SerializeField] private BoxCollider _groundCheckCollider;
 
-        [SerializeField] private AudioClip LandingAudioClip;
-        [SerializeField] private AudioClip[] FootstepAudioClips;
-        [Range(0, 1)][SerializeField] private float FootstepAudioVolume = 0.5f;
+        [SerializeField] private AudioClip _landingAudioClip;
 
-        private void Awake()
-        {
-            _collider = GetComponentInParent<CapsuleCollider>();
-        }
+        [SerializeField] private AudioClip[] _footstepAudioClips;
+
+        [Range(0, 1)]
+        [SerializeField] private float FootstepAudioVolume = 0.5f;
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                if (FootstepAudioClips.Length > 0)
+                if (_footstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_collider.center), FootstepAudioVolume);
+                    var index = Random.Range(0, _footstepAudioClips.Length);
+
+                    AudioSource.PlayClipAtPoint(
+                        _footstepAudioClips[index], 
+                        transform.TransformPoint(_groundCheckCollider.center), 
+                        FootstepAudioVolume);
                 }
             }
         }
@@ -31,7 +36,10 @@ namespace RPG
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_collider.center), FootstepAudioVolume);
+                AudioSource.PlayClipAtPoint(
+                    _landingAudioClip, 
+                    transform.TransformPoint(_groundCheckCollider.center), 
+                    FootstepAudioVolume);
             }
         }
     }

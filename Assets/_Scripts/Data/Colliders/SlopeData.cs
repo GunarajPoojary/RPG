@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace RPG
 {
+    /// <summary>
+    /// Contains configuration values for handling slope movement and step climbing behavior.
+    /// Includes parameters for step height, raycast distance, and force applied when stepping up.
+    /// </summary>
     [System.Serializable]
     public class SlopeData
     {
