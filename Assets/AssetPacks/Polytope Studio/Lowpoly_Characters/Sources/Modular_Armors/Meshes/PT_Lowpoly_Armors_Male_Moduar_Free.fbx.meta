@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: 45f944a4396b0a54398eb1abe6743296
-AssetOrigin:
-  serializedVersion: 1
-  productId: 199890
-  packageName: Lowpoly Modular Armors - Free - MEDIEVAL FANTASY SERIES
-  packageVersion: 1.2.1
-  assetPath: Assets/Polytope Studio/Lowpoly_Characters/Sources/Modular_Armors/Meshes/PT_Lowpoly_Armors_Male_Moduar_Free.fbx
-  uploadId: 721310
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -14,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: PT_Medieval_Armors_Material
+      name: PT_Armors_Material
     second: {fileID: 2100000, guid: 6f1a3abc3e476eb4f823f1ab4687b4ed, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 1
+    materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -39,121 +32,7 @@ ModelImporter:
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths:
-    - PT_Hips
-    - PT_Hips/PT_Left_Accessories_slot
-    - PT_Hips/PT_LeftUpLeg
-    - PT_Hips/PT_LeftUpLeg/PT_Left_BackCloth
-    - PT_Hips/PT_LeftUpLeg/PT_Left_BackCloth/PT_Left_BackCloth2
-    - PT_Hips/PT_LeftUpLeg/PT_Left_BackCloth/PT_Left_BackCloth2/PT_Left_BackCloth3
-    - PT_Hips/PT_LeftUpLeg/PT_Left_FrontCloth
-    - PT_Hips/PT_LeftUpLeg/PT_Left_FrontCloth/PT_Left_FrontCloth2
-    - PT_Hips/PT_LeftUpLeg/PT_Left_FrontCloth/PT_Left_FrontCloth2/PT_Left_FrontCloth3
-    - PT_Hips/PT_LeftUpLeg/PT_LeftLeg
-    - PT_Hips/PT_LeftUpLeg/PT_LeftLeg/PT_LeftFoot
-    - PT_Hips/PT_LeftUpLeg/PT_LeftLeg/PT_LeftFoot/PT_LeftToe
-    - PT_Hips/PT_Right_Accessories_slot
-    - PT_Hips/PT_RightUpLeg
-    - PT_Hips/PT_RightUpLeg/PT_Right_BackCloth
-    - PT_Hips/PT_RightUpLeg/PT_Right_BackCloth/PT_Right_BackCloth2
-    - PT_Hips/PT_RightUpLeg/PT_Right_BackCloth/PT_Right_BackCloth2/PT_Right_BackCloth3
-    - PT_Hips/PT_RightUpLeg/PT_Right_FrontCloth
-    - PT_Hips/PT_RightUpLeg/PT_Right_FrontCloth/PT_Right_FrontCloth2
-    - PT_Hips/PT_RightUpLeg/PT_Right_FrontCloth/PT_Right_FrontCloth2/PT_Right_FrontCloth3
-    - PT_Hips/PT_RightUpLeg/PT_RightLeg
-    - PT_Hips/PT_RightUpLeg/PT_RightLeg/PT_RightFoot
-    - PT_Hips/PT_RightUpLeg/PT_RightLeg/PT_RightFoot/PT_RightToe
-    - PT_Hips/PT_Second_Weapon_slot
-    - PT_Hips/PT_Spine
-    - PT_Hips/PT_Spine/PT_Spine2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftCape
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftCape/PT_LeftCape2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftCape/PT_LeftCape2/PT_LeftCape3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftCape/PT_LeftCape2/PT_LeftCape3/PT_LeftCape4
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftCape/PT_LeftCape2/PT_LeftCape3/PT_LeftCape4/PT_LeftCape5
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftArmTwist
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_Left_Hand_Shield_slot
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_Left_Hand_Weapon_slot
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandIndex1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandIndex1/PT_LeftHandIndex2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandIndex1/PT_LeftHandIndex2/PT_LeftHandIndex3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandMiddle1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandMiddle1/PT_LeftHandMiddle2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandMiddle1/PT_LeftHandMiddle2/PT_LeftHandMiddle3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandPinky1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandPinky1/PT_LeftHandPinky2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandPinky1/PT_LeftHandPinky2/PT_LeftHandPinky3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandRing1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandRing1/PT_LeftHandRing2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandRing1/PT_LeftHandRing2/PT_LeftHandRing3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandThumb1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandThumb1/PT_LeftHandThumb2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_LeftShoulder/PT_LeftArm/PT_LeftForeArm/PT_LeftHand/PT_LeftHandThumb1/PT_LeftHandThumb2/PT_LeftHandThumb3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Long_Bow_slot
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Medium_Bow_slot
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Neck
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Neck/PT_Head
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Neck/PT_Head/PT_HeadTop
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Neck/PT_Head/PT_HeadTop/PT_HeadTopFeathers
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_Quiver_Shield_slot
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightCape
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightCape/PT_RightCape2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightCape/PT_RightCape2/PT_RightCape3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightCape/PT_RightCape2/PT_RightCape3/PT_RightCape4
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightCape/PT_RightCape2/PT_RightCape3/PT_RightCape4/PT_RightCape5
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightArmTwist
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_Right_Hand_Weapon_slot
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandIndex1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandIndex1/PT_RightHandIndex2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandIndex1/PT_RightHandIndex2/PT_RightHandIndex3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandMiddle1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandMiddle1/PT_RightHandMiddle2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandMiddle1/PT_RightHandMiddle2/PT_RightHandMiddle3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandPinky1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandPinky1/PT_RightHandPinky2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandPinky1/PT_RightHandPinky2/PT_RightHandPinky3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandRing1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandRing1/PT_RightHandRing2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandRing1/PT_RightHandRing2/PT_RightHandRing3
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandThumb1
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandThumb1/PT_RightHandThumb2
-    - PT_Hips/PT_Spine/PT_Spine2/PT_Spine3/PT_RightShoulder/PT_RightArm/PT_RightForeArm/PT_RightHand/PT_RightHandThumb1/PT_RightHandThumb2/PT_RightHandThumb3
-    - PT_Hips/PT_Weapon_slot
-    - PT_Male_Armor_01_A_body
-    - PT_Male_Armor_01_A_boots
-    - PT_Male_Armor_01_A_cape
-    - PT_Male_Armor_01_A_gauntlets
-    - PT_Male_Armor_01_A_helmet
-    - PT_Male_Armor_01_A_legs
-    - PT_Male_Armor_05_C_body
-    - PT_Male_Armor_05_C_boots
-    - PT_Male_Armor_05_C_cape
-    - PT_Male_Armor_05_C_gauntlets
-    - PT_Male_Armor_05_C_helmet
-    - PT_Male_Armor_05_C_legs
-    - PT_Male_Armor_beard_01
-    - PT_Male_Armor_beard_20
-    - PT_Male_Armor_cloth_00_body
-    - PT_Male_Armor_cloth_00_boots
-    - PT_Male_Armor_cloth_00_gauntlets
-    - PT_Male_Armor_cloth_00_legs
-    - PT_Male_Armor_hair_01
-    - PT_Male_Armor_hair_20
-    - PT_Male_Armor_head_01
-    - PT_Male_Armor_head_10
-    - PT_Male_Armor_naked_00_body
-    - PT_Male_Armor_naked_00_boots
-    - PT_Male_Armor_naked_00_gauntlets
-    - PT_Male_Armor_naked_00_legs
+    extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0
@@ -169,7 +48,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    nodeNameCollisionStrategy: 0
+    nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -1215,9 +1094,9 @@ ModelImporter:
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
-  importBlendShapeDeformPercent: 0
-  remapMaterialsIfMaterialImportModeIsNone: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

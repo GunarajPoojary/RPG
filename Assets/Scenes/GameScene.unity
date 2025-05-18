@@ -1149,7 +1149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCursorLocked: 1
-  _cursorInputForLook: 1
 --- !u!114 &968990395
 MonoBehaviour:
   m_ObjectHideFlags: 0

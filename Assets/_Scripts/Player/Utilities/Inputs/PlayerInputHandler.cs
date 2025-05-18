@@ -21,7 +21,6 @@ namespace RPG
 
         [Header("Mouse Cursor Settings")]
         [SerializeField] private bool _isCursorLocked = false;
-        [SerializeField] private bool _cursorInputForLook = true;
 
         private void Awake()
         {
