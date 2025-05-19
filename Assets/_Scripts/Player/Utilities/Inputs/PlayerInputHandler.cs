@@ -5,16 +5,8 @@ using UnityEngine.InputSystem;
 
 namespace RPG
 {
-    /// <summary>
-    /// Interface that exposes the LookAction input (used by camera)
-    /// </summary>
-    public interface ILookInput
-    {
-        InputAction LookAction { get; }
-    }
-
     [DefaultExecutionOrder(-1)]
-    public class PlayerInputHandler : MonoBehaviour, ILookInput
+    public class PlayerInputHandler : MonoBehaviour, ILookInput, IJumpInput, IRunInput, IMoveInput
     {
         public PlayerInputActions InputActions { get; private set; }
 

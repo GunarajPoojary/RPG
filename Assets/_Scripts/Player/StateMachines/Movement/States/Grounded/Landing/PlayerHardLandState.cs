@@ -1,23 +1,25 @@
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; 
 
-namespace RPG
+namespace RPG 
 {
+    /// <summary>
+    /// Handles the player's hard land state logic.
+    /// </summary>
     public class PlayerHardLandState : PlayerGroundedState
     {
-        public PlayerHardLandState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
-        {
-        }
+        public PlayerHardLandState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
 
         #region IState Methods
         public override void Enter()
         {
+            // Prevent movement by setting speed modifier to 0
             _stateFactory.ReusableData.MovementSpeedModifier = 0f;
 
-            base.Enter();
+            base.Enter(); 
 
             StartAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
 
-            _stateFactory.PlayerController.Input.PlayerActions.Move.Disable();
+            _stateFactory.PlayerController.MoveInput.MoveAction.Disable();
 
             ResetVelocity();
         }
@@ -28,22 +30,21 @@ namespace RPG
 
             StopAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
 
-            _stateFactory.PlayerController.Input.PlayerActions.Move.Enable();
+            // Re-enable movement input after animation completes
+            _stateFactory.PlayerController.MoveInput.MoveAction.Enable();
         }
 
         public override void PhysicsUpdate()
         {
-            base.PhysicsUpdate();
+            base.PhysicsUpdate(); 
 
-            if (!IsMovingHorizontally())
-            {
-                return;
-            }
+            // If player has velocity (e.g., from physics sliding), reset to stop movement
+            if (!IsMovingHorizontally()) return;
 
             ResetVelocity();
         }
 
-        public override void OnAnimationExitEvent() => _stateFactory.PlayerController.Input.PlayerActions.Move.Enable();
+        public override void OnAnimationExitEvent() => _stateFactory.PlayerController.MoveInput.MoveAction.Enable();
 
         public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
         #endregion
@@ -53,28 +54,24 @@ namespace RPG
         {
             base.AddInputActionsCallbacks();
 
-            _stateFactory.PlayerController.Input.PlayerActions.Move.started += OnMovementStarted;
+            _stateFactory.PlayerController.MoveInput.MoveAction.started += OnMovementStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
 
-            _stateFactory.PlayerController.Input.PlayerActions.Move.started -= OnMovementStarted;
+            _stateFactory.PlayerController.MoveInput.MoveAction.started -= OnMovementStarted;
         }
 
-        protected override void OnMove()
-        {
-            _stateFactory.SwitchState(_stateFactory.WalkState);
-        }
+        protected override void OnMove() => _stateFactory.SwitchState(_stateFactory.WalkState);
         #endregion
 
         #region Input Methods
-        private void OnMovementStarted(InputAction.CallbackContext context) => OnMove();
+        private void OnMovementStarted(InputAction.CallbackContext context) => OnMove(); // Immediately transition to walk state
 
-        protected override void OnJumpStarted(InputAction.CallbackContext context)
-        {
-        }
+        // Ignore jump input while hard landing is playing
+        protected override void OnJumpStarted(InputAction.CallbackContext context) { }
         #endregion
     }
 }

@@ -21,7 +21,7 @@ namespace RPG
 
         private Vector2 _look;
 
-        private void Awake() => _playerInput = GetComponentInParent<PlayerInputHandler>();
+        private void Awake() => _playerInput = GetComponentInParent<ILookInput>();
 
         private void OnEnable()
         {

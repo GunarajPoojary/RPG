@@ -9,7 +9,19 @@ namespace RPG
     {
         private IMovementStateAnimationHandler _playerController;
 
-        private void Awake() => _playerController = GetComponentInParent<PlayerController>();
+        private void Awake()
+        {
+            _playerController = GetComponentInParent<IMovementStateAnimationHandler>();
+            if (_playerController == null)
+            {
+                Debug.LogError("PlayerAnimationEventTrigger requires a PlayerController component in the parent hierarchy.");
+            }
+            else
+            {
+                Debug.Log(_playerController.GetType().Name);
+            }
+        }
+
 
         public void TriggerOnMovementStateAnimationEnterEvent()
         {

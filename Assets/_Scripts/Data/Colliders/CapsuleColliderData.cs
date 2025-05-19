@@ -13,9 +13,9 @@ namespace RPG
         public Vector3 ColliderCenterInLocalSpace { get; private set; }
         public Vector3 ColliderVerticalExtents { get; private set; }
 
-        public CapsuleColliderData(CapsuleCollider col)
+        public CapsuleColliderData(CapsuleCollider collider)
         {
-            Collider = col;
+            Collider = collider;
             UpdateColliderData();
         }
 

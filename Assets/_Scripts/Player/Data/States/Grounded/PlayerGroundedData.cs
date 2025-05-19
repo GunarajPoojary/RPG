@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace RPG
 {
+    /// <summary>
+    /// Contains data related to the player's grounded state, including movement speeds, rotation data, and slope behavior.
+    /// </summary>
     [System.Serializable]
     public class PlayerGroundedData
     {
