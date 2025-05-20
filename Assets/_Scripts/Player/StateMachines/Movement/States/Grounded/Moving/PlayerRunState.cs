@@ -42,9 +42,6 @@ namespace RPG
             // If not enough time has passed, stay in run state for a brief period (RunToWalkTime)
             if (Time.time < _startTime + _groundedData.RunData.RunToWalkTime)
                 return;
-
-            // If time has passed and run is no longer held, switch to walking or idle
-            StopRunning();
         }
         #endregion
 

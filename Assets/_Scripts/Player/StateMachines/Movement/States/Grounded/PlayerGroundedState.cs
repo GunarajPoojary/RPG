@@ -1,20 +1,25 @@
-using System.Collections; 
-using UnityEngine; 
-using UnityEngine.InputSystem; 
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace RPG 
+namespace RPG
 {
     /// <summary>
     /// Handles common movement logic related to the grounded state of the player
     /// </summary>
     public class PlayerGroundedState : PlayerBaseMovementState
     {
-        public PlayerGroundedState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        private WaitForSeconds _jumpDelayWait;
+
+        public PlayerGroundedState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
+        {
+            _jumpDelayWait = new WaitForSeconds(_groundedData.JumpDelay);
+        }
 
         #region IState Methods
         public override void Enter()
         {
-            base.Enter(); 
+            base.Enter();
 
             StartAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
 
@@ -23,25 +28,25 @@ namespace RPG
 
         public override void Exit()
         {
-            base.Exit(); 
+            base.Exit();
 
             StopAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
         }
 
         public override void PhysicsUpdate()
         {
-            base.PhysicsUpdate(); 
+            base.PhysicsUpdate();
 
-            Float(); 
+            Float();
         }
 
         // Ensures ShouldRun is false if the player is not providing movement input
         private void UpdateShouldRunState()
         {
             if (!_stateFactory.ReusableData.ShouldRun) return;
-            if (_stateFactory.ReusableData.MovementInput != Vector2.zero) return; 
+            if (_stateFactory.ReusableData.MovementInput != Vector2.zero) return;
 
-            _stateFactory.ReusableData.ShouldRun = false; 
+            _stateFactory.ReusableData.ShouldRun = false;
         }
         #endregion
 
@@ -53,11 +58,11 @@ namespace RPG
             Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             // Cast a ray down from the center of the capsule
-            Ray downwardsRayFromCapsuleCenter = new Ray(capsuleColliderCenterInWorldSpace, Vector3.down);
+            Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
 
             // Check for ground hit using the float ray
-            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit, 
-                _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance, 
+            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit,
+                _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance,
                 _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 // Calculate ground angle for slope detection
@@ -69,14 +74,14 @@ namespace RPG
                 if (slopeSpeedModifier == 0f) return; // Can't move on this slope
 
                 // Calculate how far off the ground we are
-                float distanceToFloatingPoint = 
-                    _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y * 
+                float distanceToFloatingPoint =
+                    _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
                     _stateFactory.PlayerController.transform.localScale.y - hit.distance;
 
                 if (distanceToFloatingPoint == 0f) return; // Already aligned with ground
 
                 // Calculate upward force needed to match ground height
-                float amountToLift = distanceToFloatingPoint * 
+                float amountToLift = distanceToFloatingPoint *
                     _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
 
                 // Apply vertical lift force
@@ -89,11 +94,11 @@ namespace RPG
         // Sets slope-based movement speed modifier
         private float SetSlopeSpeedModifierOnAngle(float angle)
         {
-            float slopeSpeedModifier = _groundedData.SlopeSpeedAngles.Evaluate(angle); 
+            float slopeSpeedModifier = _groundedData.SlopeSpeedAngles.Evaluate(angle);
 
             if (_stateFactory.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
             {
-                _stateFactory.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier; 
+                _stateFactory.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
             }
 
             return slopeSpeedModifier;
@@ -108,10 +113,10 @@ namespace RPG
 
             // Check overlap box to detect if ground is underneath
             Collider[] overlappedGroundColliders = Physics.OverlapBox(
-                groundColliderCenterInWorldSpace, 
-                triggerColliderData.GroundCheckColliderVerticalExtents, 
-                triggerColliderData.GroundCheckCollider.transform.rotation, 
-                _stateFactory.PlayerController.LayerData.GroundLayer, 
+                groundColliderCenterInWorldSpace,
+                triggerColliderData.GroundCheckColliderVerticalExtents,
+                triggerColliderData.GroundCheckCollider.transform.rotation,
+                _stateFactory.PlayerController.LayerData.GroundLayer,
                 QueryTriggerInteraction.Ignore
             );
 
@@ -122,13 +127,13 @@ namespace RPG
         #region Reusable Methods
         protected override void AddInputActionsCallbacks()
         {
-            base.AddInputActionsCallbacks(); 
+            base.AddInputActionsCallbacks();
             _stateFactory.PlayerController.JumpInput.JumpAction.started += OnJumpStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
-            base.RemoveInputActionsCallbacks(); 
+            base.RemoveInputActionsCallbacks();
             _stateFactory.PlayerController.JumpInput.JumpAction.started -= OnJumpStarted;
         }
 
@@ -136,28 +141,28 @@ namespace RPG
         {
             if (_stateFactory.ReusableData.ShouldRun)
             {
-                _stateFactory.SwitchState(_stateFactory.RunState); 
+                _stateFactory.SwitchState(_stateFactory.RunState);
                 return;
             }
 
-            _stateFactory.SwitchState(_stateFactory.WalkState); 
+            _stateFactory.SwitchState(_stateFactory.WalkState);
         }
 
         protected override void OnContactWithGroundExited(Collider collider)
         {
-            if (IsThereGroundUnderneath()) return; 
+            if (IsThereGroundUnderneath()) return;
 
             Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             Ray downwardsRayFromCapsuleBottom = new(
-                capsuleColliderCenterInWorldSpace - _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents, 
+                capsuleColliderCenterInWorldSpace - _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents,
                 Vector3.down
             );
 
             if (!Physics.Raycast(
-                downwardsRayFromCapsuleBottom, out _, 
-                _groundedData.GroundToFallRayDistance, 
-                _stateFactory.PlayerController.LayerData.GroundLayer, 
+                downwardsRayFromCapsuleBottom, out _,
+                _groundedData.GroundToFallRayDistance,
+                _stateFactory.PlayerController.LayerData.GroundLayer,
                 QueryTriggerInteraction.Ignore)) OnFall();
         }
 
@@ -184,7 +189,7 @@ namespace RPG
         // Coroutine to enable jump input after a short delay
         private IEnumerator EnableJumpAfterDelay()
         {
-            yield return new WaitForSeconds(_groundedData.JumpDelay); 
+            yield return _jumpDelayWait;
             _stateFactory.PlayerController.JumpInput.JumpAction.Enable(); // Then enable jump
         }
         #endregion
@@ -192,14 +197,14 @@ namespace RPG
         #region Input Methods
         protected override void OnRun(InputAction.CallbackContext ctx)
         {
-            base.OnRun(ctx); 
+            base.OnRun(ctx);
 
             if (_stateFactory.ReusableData.MovementInput != Vector2.zero) OnMove();
         }
 
         protected override void OnMovementPerformed(InputAction.CallbackContext ctx)
         {
-            base.OnMovementPerformed(ctx); 
+            base.OnMovementPerformed(ctx);
 
             // Update facing direction when movement starts
             UpdateTargetRotation(GetMovementInputDirection());
