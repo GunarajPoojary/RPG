@@ -7,7 +7,7 @@ namespace RPG
     /// </summary>
     public class PlayerStateFactory : StateMachine
     {
-        public PlayerController PlayerController { get; }
+        public PlayerMovementController PlayerController { get; }
         public PlayerStateReusableData ReusableData { get; }
 
         public PlayerIdleState IdleState { get; }
@@ -22,7 +22,7 @@ namespace RPG
         public PlayerJumpState JumpState { get; }
         public PlayerFallState FallState { get; }
 
-        public PlayerStateFactory(PlayerController playerController)
+        public PlayerStateFactory(PlayerMovementController playerController)
         {
             PlayerController = playerController;
             

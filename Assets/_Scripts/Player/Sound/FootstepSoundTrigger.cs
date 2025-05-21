@@ -7,38 +7,47 @@ namespace RPG
     /// </summary>
     public class FootstepSoundTrigger : MonoBehaviour
     {
+        [Range(0f, 1f)]
+        [SerializeField] private float _minLandClipWieghtThreshold = 0.5f;
+        
+        [Range(0f, 1f)]
+        [SerializeField] private float _minMoveWieghtThreshold = 0.5f;
+
         [SerializeField] private BoxCollider _groundCheckCollider;
-
-        [SerializeField] private AudioClip _landingAudioClip;
-
-        [SerializeField] private AudioClip[] _footstepAudioClips;
 
         [Range(0, 1)]
         [SerializeField] private float FootstepAudioVolume = 0.5f;
 
-        private void OnFootstep(AnimationEvent animationEvent)
+        private PlayerFootStepAudioModel _footStepAudioModel;
+
+        private void Start()
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            _footStepAudioModel = GameService.Instance.PlayerFootStepAudioModel;
+        }
+
+        public void OnMove(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight > _minMoveWieghtThreshold)
             {
-                if (_footstepAudioClips.Length > 0)
+                if (_footStepAudioModel.FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, _footstepAudioClips.Length);
+                    var index = Random.Range(0, _footStepAudioModel.FootstepAudioClips.Length);
 
                     AudioSource.PlayClipAtPoint(
-                        _footstepAudioClips[index], 
-                        transform.TransformPoint(_groundCheckCollider.center), 
+                        _footStepAudioModel.FootstepAudioClips[index],
+                        transform.TransformPoint(_groundCheckCollider.center),
                         FootstepAudioVolume);
                 }
             }
         }
 
-        private void OnLand(AnimationEvent animationEvent)
+        public void OnLand(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            if (animationEvent.animatorClipInfo.weight > _minLandClipWieghtThreshold)
             {
                 AudioSource.PlayClipAtPoint(
-                    _landingAudioClip, 
-                    transform.TransformPoint(_groundCheckCollider.center), 
+                    _footStepAudioModel.LandingAudioClip,
+                    transform.TransformPoint(_groundCheckCollider.center),
                     FootstepAudioVolume);
             }
         }

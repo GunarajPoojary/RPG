@@ -13,6 +13,8 @@ namespace RPG
         protected readonly PlayerGroundedData _groundedData;
         protected readonly PlayerAirborneData _airborneData;
 
+        private Transform _mainCameraTransform;
+
         private const float ANIMATIONBLENDSPEED = 10.0f;
         private const float BLENDSNAPTHRESHOLD = 0.01f;
         private const float FULLROTATIONDEGREES = 360f;
@@ -23,6 +25,8 @@ namespace RPG
 
             _groundedData = _stateFactory.PlayerController.Data.GroundedData;
             _airborneData = _stateFactory.PlayerController.Data.AirborneData;
+
+            _mainCameraTransform = Camera.main?.transform;
 
             SetBaseRotationData();
         }
@@ -188,7 +192,7 @@ namespace RPG
             if (directionAngle < 0f) directionAngle += FULLROTATIONDEGREES;
 
             // Add camera Y rotation
-            directionAngle += _stateFactory.PlayerController.MainCameraTransform.eulerAngles.y;
+            directionAngle += _mainCameraTransform.eulerAngles.y;
 
             if (directionAngle > FULLROTATIONDEGREES) directionAngle -= FULLROTATIONDEGREES;
 

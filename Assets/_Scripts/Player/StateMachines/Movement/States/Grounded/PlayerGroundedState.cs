@@ -76,7 +76,7 @@ namespace RPG
                 // Calculate how far off the ground we are
                 float distanceToFloatingPoint =
                     _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
-                    _stateFactory.PlayerController.transform.localScale.y - hit.distance;
+                    _stateFactory.PlayerController.Transform.localScale.y - hit.distance;
 
                 if (distanceToFloatingPoint == 0f) return; // Already aligned with ground
 

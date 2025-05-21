@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 namespace RPG
 {
-    [DefaultExecutionOrder(-1)]
     public class PlayerInputHandler : MonoBehaviour, ILookInput, IJumpInput, IRunInput, IMoveInput
     {
         public PlayerInputActions InputActions { get; private set; }

@@ -75,7 +75,7 @@ namespace RPG
             Vector3 jumpForce = _stateFactory.ReusableData.CurrentJumpForce;
 
             // Default jump direction is forward (in local space)
-            Vector3 jumpDirection = _stateFactory.PlayerController.transform.forward;
+            Vector3 jumpDirection = _stateFactory.PlayerController.Transform.forward;
 
             if (_shouldKeepRotating)
             {

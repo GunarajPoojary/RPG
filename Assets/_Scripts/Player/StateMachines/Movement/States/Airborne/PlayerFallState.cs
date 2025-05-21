@@ -20,7 +20,7 @@ namespace RPG
             StartAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
 
             // Store the initial Y position to calculate fall distance later
-            _playerPositionOnEnter = _stateFactory.PlayerController.transform.position;
+            _playerPositionOnEnter = _stateFactory.PlayerController.Transform.position;
 
             ResetVerticalVelocity();
         }
@@ -67,7 +67,7 @@ namespace RPG
         protected override void OnContactWithGround(Collider collider)
         {
             // Calculate how far the player has fallen
-            float fallDistance = _playerPositionOnEnter.y - _stateFactory.PlayerController.transform.position.y;
+            float fallDistance = _playerPositionOnEnter.y - _stateFactory.PlayerController.Transform.position.y;
 
             // If fall distance is small, do a soft landing
             if (fallDistance < _airborneData.FallData.MinimumDistanceToBeConsideredHardFall)
