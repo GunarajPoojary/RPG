@@ -14,14 +14,14 @@ namespace RPG
         {
             base.Enter(); 
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
+            StartAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.AirborneParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
+            StopAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.AirborneParameterHash);
         }
         #endregion
 

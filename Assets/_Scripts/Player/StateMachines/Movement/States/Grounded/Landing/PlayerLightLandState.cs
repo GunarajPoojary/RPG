@@ -15,7 +15,7 @@ namespace RPG
             // Set jump force to stationary value (typically for idle jump after landing)
             _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
 
-            _stateFactory.PlayerController.JumpInput.JumpAction.Disable();
+            _stateFactory.PlayerMovementStateMachine.JumpInput.JumpAction.Disable();
 
             ResetVelocity();
         }

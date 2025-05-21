@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RPG
 {
-    public class PlayerMovementController : IMovementStateAnimationHandler
+    public class PlayerMovementStateMachine : IMovementStateAnimationHandler
     {
         private readonly PlayerView _view;
         private readonly PlayerStateModel _model;
@@ -23,12 +23,11 @@ namespace RPG
         public PlayerLayerData LayerData => _model?.LayerData;
         public PlayerStateMachineDataSO Data => _model?.StateMachineData;
         
-        public PlayerMovementController(PlayerStateModel model, PlayerView view)
+        public PlayerMovementStateMachine(PlayerStateModel model, PlayerView view)
         {
             _model = model;
+            _view = view;
             _model.AnimationData.Init();
-            _view = Object.Instantiate(view);
-            _view.SetController(this);
             _stateFactory = new PlayerStateFactory(this); // You may need to adjust factory input
             _stateFactory.SwitchState(_stateFactory.IdleState);
         }
@@ -44,10 +43,6 @@ namespace RPG
         public void OnMovementStateAnimationExitEvent() => _stateFactory.OnAnimationExitEvent();
         public void OnMovementStateAnimationTransitionEvent() => _stateFactory.OnAnimationTransitionEvent();
 
-        internal void StartCoroutine(IEnumerator enumerator)
-        {
-            _view.StartCoroutine(enumerator);
-        }
+        public void StartCoroutine(IEnumerator enumerator) => _view.StartCoroutine(enumerator);
     }
-
 }

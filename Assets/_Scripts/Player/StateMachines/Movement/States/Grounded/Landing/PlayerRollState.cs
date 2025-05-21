@@ -18,14 +18,14 @@ namespace RPG
 
             base.Enter(); 
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.RollParameterHash);
+            StartAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.RollParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit(); 
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.RollParameterHash);
+            StopAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.RollParameterHash);
         }
 
         public override void PhysicsUpdate()

@@ -9,11 +9,12 @@ namespace RPG
 
     public class PlayerService
     {
-        public PlayerMovementController PlayerController { get; private set; }
+        public PlayerController PlayerController { get; private set; }
 
         public PlayerService(PlayerStateModel model, PlayerView view)
         {
-            PlayerController = new PlayerMovementController(model, view);
+            PlayerController = new PlayerController(view);
+            PlayerController.InitPlayerStateMachine(model);
         }
     }
 }

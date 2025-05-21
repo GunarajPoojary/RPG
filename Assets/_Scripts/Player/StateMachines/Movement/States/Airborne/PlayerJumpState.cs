@@ -75,7 +75,7 @@ namespace RPG
             Vector3 jumpForce = _stateFactory.ReusableData.CurrentJumpForce;
 
             // Default jump direction is forward (in local space)
-            Vector3 jumpDirection = _stateFactory.PlayerController.Transform.forward;
+            Vector3 jumpDirection = _stateFactory.PlayerMovementStateMachine.Transform.forward;
 
             if (_shouldKeepRotating)
             {
@@ -95,13 +95,13 @@ namespace RPG
 
             ResetVelocity(); 
 
-            _stateFactory.PlayerController.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
         }
 
         // Modifies the jump force based on ground slope beneath player
         private Vector3 GetJumpForceOnSlope(Vector3 jumpForce)
         {
-            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             // Create a ray straight down from the player's position
             Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
@@ -111,7 +111,7 @@ namespace RPG
                     downwardsRayFromCapsuleCenter,
                     out RaycastHit hit,
                     _airborneData.JumpData.JumpToGroundRayDistance,
-                    _stateFactory.PlayerController.LayerData.GroundLayer,
+                    _stateFactory.PlayerMovementStateMachine.LayerData.GroundLayer,
                     QueryTriggerInteraction.Ignore))
             {
                 // Get the angle between ground normal and downward direction

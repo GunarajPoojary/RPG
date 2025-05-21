@@ -21,7 +21,7 @@ namespace RPG
         {
             base.Enter();
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
+            StartAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.GroundedParameterHash);
 
             UpdateShouldRunState();
         }
@@ -30,7 +30,7 @@ namespace RPG
         {
             base.Exit();
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
+            StopAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.GroundedParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -55,15 +55,15 @@ namespace RPG
         private void Float()
         {
             // Get collider center in world space
-            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             // Cast a ray down from the center of the capsule
             Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
 
             // Check for ground hit using the float ray
             if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit,
-                _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance,
-                _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
+                _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.SlopeData.FloatRayDistance,
+                _stateFactory.PlayerMovementStateMachine.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 // Calculate ground angle for slope detection
                 float groundAngle = Vector3.Angle(hit.normal, -downwardsRayFromCapsuleCenter.direction);
@@ -75,19 +75,19 @@ namespace RPG
 
                 // Calculate how far off the ground we are
                 float distanceToFloatingPoint =
-                    _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
-                    _stateFactory.PlayerController.Transform.localScale.y - hit.distance;
+                    _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
+                    _stateFactory.PlayerMovementStateMachine.Transform.localScale.y - hit.distance;
 
                 if (distanceToFloatingPoint == 0f) return; // Already aligned with ground
 
                 // Calculate upward force needed to match ground height
                 float amountToLift = distanceToFloatingPoint *
-                    _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
+                    _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
 
                 // Apply vertical lift force
                 Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
 
-                _stateFactory.PlayerController.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
+                _stateFactory.PlayerMovementStateMachine.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
             }
         }
 
@@ -107,7 +107,7 @@ namespace RPG
         // Checks if there's still ground under the player (used to confirm grounded state)
         private bool IsThereGroundUnderneath()
         {
-            PlayerTriggerColliderData triggerColliderData = _stateFactory.PlayerController.ResizableCapsuleCollider.TriggerColliderData;
+            PlayerTriggerColliderData triggerColliderData = _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.TriggerColliderData;
 
             Vector3 groundColliderCenterInWorldSpace = triggerColliderData.GroundCheckCollider.bounds.center;
 
@@ -116,7 +116,7 @@ namespace RPG
                 groundColliderCenterInWorldSpace,
                 triggerColliderData.GroundCheckColliderVerticalExtents,
                 triggerColliderData.GroundCheckCollider.transform.rotation,
-                _stateFactory.PlayerController.LayerData.GroundLayer,
+                _stateFactory.PlayerMovementStateMachine.LayerData.GroundLayer,
                 QueryTriggerInteraction.Ignore
             );
 
@@ -128,13 +128,13 @@ namespace RPG
         protected override void AddInputActionsCallbacks()
         {
             base.AddInputActionsCallbacks();
-            _stateFactory.PlayerController.JumpInput.JumpAction.started += OnJumpStarted;
+            _stateFactory.PlayerMovementStateMachine.JumpInput.JumpAction.started += OnJumpStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
-            _stateFactory.PlayerController.JumpInput.JumpAction.started -= OnJumpStarted;
+            _stateFactory.PlayerMovementStateMachine.JumpInput.JumpAction.started -= OnJumpStarted;
         }
 
         protected virtual void OnMove()
@@ -152,17 +152,17 @@ namespace RPG
         {
             if (IsThereGroundUnderneath()) return;
 
-            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             Ray downwardsRayFromCapsuleBottom = new(
-                capsuleColliderCenterInWorldSpace - _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents,
+                capsuleColliderCenterInWorldSpace - _stateFactory.PlayerMovementStateMachine.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents,
                 Vector3.down
             );
 
             if (!Physics.Raycast(
                 downwardsRayFromCapsuleBottom, out _,
                 _groundedData.GroundToFallRayDistance,
-                _stateFactory.PlayerController.LayerData.GroundLayer,
+                _stateFactory.PlayerMovementStateMachine.LayerData.GroundLayer,
                 QueryTriggerInteraction.Ignore)) OnFall();
         }
 
@@ -173,24 +173,24 @@ namespace RPG
         {
             if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
             {
-                _stateFactory.PlayerController.JumpInput.JumpAction.Enable(); // No movement input, just enable jump
+                _stateFactory.PlayerMovementStateMachine.JumpInput.JumpAction.Enable(); // No movement input, just enable jump
                 return;
             }
 
             if (_stateFactory.ReusableData.ShouldRun)
             {
-                _stateFactory.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Delay jump after landing
+                _stateFactory.PlayerMovementStateMachine.StartCoroutine(EnableJumpAfterDelay()); // Delay jump after landing
                 return;
             }
 
-            _stateFactory.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Default: delay then enable jump
+            _stateFactory.PlayerMovementStateMachine.StartCoroutine(EnableJumpAfterDelay()); // Default: delay then enable jump
         }
 
         // Coroutine to enable jump input after a short delay
         private IEnumerator EnableJumpAfterDelay()
         {
             yield return _jumpDelayWait;
-            _stateFactory.PlayerController.JumpInput.JumpAction.Enable(); // Then enable jump
+            _stateFactory.PlayerMovementStateMachine.JumpInput.JumpAction.Enable(); // Then enable jump
         }
         #endregion
 

@@ -17,9 +17,9 @@ namespace RPG
 
             base.Enter(); 
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
+            StartAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.HardLandParameterHash);
 
-            _stateFactory.PlayerController.MoveInput.MoveAction.Disable();
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.Disable();
 
             ResetVelocity();
         }
@@ -28,10 +28,10 @@ namespace RPG
         {
             base.Exit();
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
+            StopAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.HardLandParameterHash);
 
             // Re-enable movement input after animation completes
-            _stateFactory.PlayerController.MoveInput.MoveAction.Enable();
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.Enable();
         }
 
         public override void PhysicsUpdate()
@@ -44,7 +44,7 @@ namespace RPG
             ResetVelocity();
         }
 
-        public override void OnAnimationExitEvent() => _stateFactory.PlayerController.MoveInput.MoveAction.Enable();
+        public override void OnAnimationExitEvent() => _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.Enable();
 
         public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
         #endregion
@@ -54,14 +54,14 @@ namespace RPG
         {
             base.AddInputActionsCallbacks();
 
-            _stateFactory.PlayerController.MoveInput.MoveAction.started += OnMovementStarted;
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.started += OnMovementStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
 
-            _stateFactory.PlayerController.MoveInput.MoveAction.started -= OnMovementStarted;
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.started -= OnMovementStarted;
         }
 
         protected override void OnMove() => _stateFactory.SwitchState(_stateFactory.WalkState);

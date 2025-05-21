@@ -11,7 +11,7 @@ namespace RPG
 
         private void Start()
         {
-            _playerStateAnimationHandler = GameService.Instance.PlayerService.PlayerController;
+            _playerStateAnimationHandler = GameService.Instance.PlayerService.PlayerController.PlayerMovementStateMachine;
 
             if (_playerStateAnimationHandler == null)
                 Debug.LogError("PlayerAnimationEventTrigger requires a PlayerController component in the parent hierarchy.");

@@ -23,8 +23,8 @@ namespace RPG
         {
             _stateFactory = playerStateFactory;
 
-            _groundedData = _stateFactory.PlayerController.Data.GroundedData;
-            _airborneData = _stateFactory.PlayerController.Data.AirborneData;
+            _groundedData = _stateFactory.PlayerMovementStateMachine.Data.GroundedData;
+            _airborneData = _stateFactory.PlayerMovementStateMachine.Data.AirborneData;
 
             _mainCameraTransform = Camera.main?.transform;
 
@@ -44,7 +44,7 @@ namespace RPG
 
         public virtual void OnTriggerEnter(Collider collider)
         {
-            if (_stateFactory.PlayerController.LayerData.IsGroundLayer(collider.gameObject.layer))
+            if (_stateFactory.PlayerMovementStateMachine.LayerData.IsGroundLayer(collider.gameObject.layer))
             {
                 OnContactWithGround(collider);
                 return;
@@ -53,7 +53,7 @@ namespace RPG
 
         public virtual void OnTriggerExit(Collider collider)
         {
-            if (_stateFactory.PlayerController.LayerData.IsGroundLayer(collider.gameObject.layer))
+            if (_stateFactory.PlayerMovementStateMachine.LayerData.IsGroundLayer(collider.gameObject.layer))
             {
                 OnContactWithGroundExited(collider);
                 return;
@@ -68,7 +68,7 @@ namespace RPG
         #region Main Methods
         // Reads movement input from Input System
         private void ReadMovementInput() =>
-            _stateFactory.ReusableData.MovementInput = _stateFactory.PlayerController.MoveInput.MoveAction.ReadValue<Vector2>();
+            _stateFactory.ReusableData.MovementInput = _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.ReadValue<Vector2>();
 
         // Handles actual movement logic
         private void Move()
@@ -102,7 +102,7 @@ namespace RPG
             Vector3 currentPlayerHorizontalVelocity = GetHorizontalVelocity();
 
             // Apply force to move player
-            _stateFactory.PlayerController.Rigidbody.AddForce(
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.AddForce(
                 targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity,
                 ForceMode.VelocityChange
             );
@@ -114,19 +114,19 @@ namespace RPG
             var targetSpeed = UpdateMovementParameter();
 
             // Smooth blend current animation speed towards target speed
-            _stateFactory.PlayerController.AnimationData.AnimationBlend =
-                Mathf.Lerp(_stateFactory.PlayerController.AnimationData.AnimationBlend, targetSpeed, Time.deltaTime * ANIMATIONBLENDSPEED);
+            _stateFactory.PlayerMovementStateMachine.AnimationData.AnimationBlend =
+                Mathf.Lerp(_stateFactory.PlayerMovementStateMachine.AnimationData.AnimationBlend, targetSpeed, Time.deltaTime * ANIMATIONBLENDSPEED);
 
             // Snap to zero if blend is too low
-            if (_stateFactory.PlayerController.AnimationData.AnimationBlend < BLENDSNAPTHRESHOLD)
+            if (_stateFactory.PlayerMovementStateMachine.AnimationData.AnimationBlend < BLENDSNAPTHRESHOLD)
             {
-                _stateFactory.PlayerController.AnimationData.AnimationBlend = 0.0f;
+                _stateFactory.PlayerMovementStateMachine.AnimationData.AnimationBlend = 0.0f;
             }
 
             // Apply animation blend value to Animator
-            _stateFactory.PlayerController.Animator.SetFloat(
-                _stateFactory.PlayerController.AnimationData.SpeedParameterHash,
-                _stateFactory.PlayerController.AnimationData.AnimationBlend
+            _stateFactory.PlayerMovementStateMachine.Animator.SetFloat(
+                _stateFactory.PlayerMovementStateMachine.AnimationData.SpeedParameterHash,
+                _stateFactory.PlayerMovementStateMachine.AnimationData.AnimationBlend
             );
         }
 
@@ -158,26 +158,26 @@ namespace RPG
             _stateFactory.ReusableData.TimeToReachTargetRotation = _stateFactory.ReusableData.RotationData.TargetRotationReachTime;
         }
 
-        protected void StartAnimation(int animationHash) => _stateFactory.PlayerController.Animator.SetBool(animationHash, true);
+        protected void StartAnimation(int animationHash) => _stateFactory.PlayerMovementStateMachine.Animator.SetBool(animationHash, true);
 
-        protected void StopAnimation(int animationHash) => _stateFactory.PlayerController.Animator.SetBool(animationHash, false);
+        protected void StopAnimation(int animationHash) => _stateFactory.PlayerMovementStateMachine.Animator.SetBool(animationHash, false);
 
         protected virtual void AddInputActionsCallbacks()
         {
-            _stateFactory.PlayerController.RunInput.RunAction.performed += OnRun;
-            _stateFactory.PlayerController.RunInput.RunAction.canceled += OnRun;
+            _stateFactory.PlayerMovementStateMachine.RunInput.RunAction.performed += OnRun;
+            _stateFactory.PlayerMovementStateMachine.RunInput.RunAction.canceled += OnRun;
 
-            _stateFactory.PlayerController.MoveInput.MoveAction.performed += OnMovementPerformed;
-            _stateFactory.PlayerController.MoveInput.MoveAction.canceled += OnMovementCanceled;
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.performed += OnMovementPerformed;
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.canceled += OnMovementCanceled;
         }
 
         protected virtual void RemoveInputActionsCallbacks()
         {
-            _stateFactory.PlayerController.RunInput.RunAction.performed -= OnRun;
-            _stateFactory.PlayerController.RunInput.RunAction.canceled -= OnRun;
+            _stateFactory.PlayerMovementStateMachine.RunInput.RunAction.performed -= OnRun;
+            _stateFactory.PlayerMovementStateMachine.RunInput.RunAction.canceled -= OnRun;
 
-            _stateFactory.PlayerController.MoveInput.MoveAction.performed -= OnMovementPerformed;
-            _stateFactory.PlayerController.MoveInput.MoveAction.canceled -= OnMovementCanceled;
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.performed -= OnMovementPerformed;
+            _stateFactory.PlayerMovementStateMachine.MoveInput.MoveAction.canceled -= OnMovementCanceled;
         }
 
         // Converts 2D input into a 3D direction vector
@@ -214,7 +214,7 @@ namespace RPG
         protected void RotateTowardsTargetRotation()
         {
             // Get the current Y-axis rotation of the player's Rigidbody
-            float currentYAngle = _stateFactory.PlayerController.Rigidbody.rotation.eulerAngles.y;
+            float currentYAngle = _stateFactory.PlayerMovementStateMachine.Rigidbody.rotation.eulerAngles.y;
 
             // If the current rotation matches the target, no need to rotate
             if (currentYAngle == _stateFactory.ReusableData.CurrentTargetRotation.y) return;
@@ -234,36 +234,36 @@ namespace RPG
             Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
 
             // Apply the new rotation to the Rigidbody to rotate the player
-            _stateFactory.PlayerController.Rigidbody.MoveRotation(targetRotation);
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.MoveRotation(targetRotation);
         }
 
         protected Vector3 GetHorizontalVelocity()
         {
-            Vector3 horizontalVelocity = _stateFactory.PlayerController.Rigidbody.linearVelocity;
+            Vector3 horizontalVelocity = _stateFactory.PlayerMovementStateMachine.Rigidbody.linearVelocity;
             horizontalVelocity.y = 0f;
             return horizontalVelocity;
         }
 
         protected Vector3 GetVerticalVelocity() =>
-            new(0f, _stateFactory.PlayerController.Rigidbody.linearVelocity.y, 0f);
+            new(0f, _stateFactory.PlayerMovementStateMachine.Rigidbody.linearVelocity.y, 0f);
 
         protected virtual void OnContactWithGround(Collider collider) { }
 
         protected virtual void OnContactWithGroundExited(Collider collider) { }
 
         protected void ResetVelocity() =>
-            _stateFactory.PlayerController.Rigidbody.linearVelocity = Vector3.zero;
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.linearVelocity = Vector3.zero;
 
         protected void ResetVerticalVelocity()
         {
             Vector3 horizontalVelocity = GetHorizontalVelocity();
-            _stateFactory.PlayerController.Rigidbody.linearVelocity = horizontalVelocity;
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.linearVelocity = horizontalVelocity;
         }
 
         protected void DecelerateVertically()
         {
             Vector3 verticalVelocity = GetVerticalVelocity();
-            _stateFactory.PlayerController.Rigidbody.AddForce(-verticalVelocity * _stateFactory.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.AddForce(-verticalVelocity * _stateFactory.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
         }
 
         // Checks if horizontal movement exceeds a threshold

@@ -17,10 +17,10 @@ namespace RPG
             base.Enter();
 
             // Play the falling animation (e.g., arms waving, falling pose)
-            StartAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
+            StartAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.FallParameterHash);
 
             // Store the initial Y position to calculate fall distance later
-            _playerPositionOnEnter = _stateFactory.PlayerController.Transform.position;
+            _playerPositionOnEnter = _stateFactory.PlayerMovementStateMachine.Transform.position;
 
             ResetVerticalVelocity();
         }
@@ -29,7 +29,7 @@ namespace RPG
         {
             base.Exit(); 
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
+            StopAnimation(_stateFactory.PlayerMovementStateMachine.AnimationData.FallParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -59,7 +59,7 @@ namespace RPG
             );
 
             // Apply force to cap fall speed
-            _stateFactory.PlayerController.Rigidbody.AddForce(limitedVelocityForce, ForceMode.VelocityChange);
+            _stateFactory.PlayerMovementStateMachine.Rigidbody.AddForce(limitedVelocityForce, ForceMode.VelocityChange);
         }
         #endregion
 
@@ -67,7 +67,7 @@ namespace RPG
         protected override void OnContactWithGround(Collider collider)
         {
             // Calculate how far the player has fallen
-            float fallDistance = _playerPositionOnEnter.y - _stateFactory.PlayerController.Transform.position.y;
+            float fallDistance = _playerPositionOnEnter.y - _stateFactory.PlayerMovementStateMachine.Transform.position.y;
 
             // If fall distance is small, do a soft landing
             if (fallDistance < _airborneData.FallData.MinimumDistanceToBeConsideredHardFall)
